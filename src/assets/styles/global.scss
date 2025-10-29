@@ -1,0 +1,105 @@
+// ———————————————————————————————
+// GLOBAL STYLES + THEMES
+// global.scss – Imported by styles.scss
+// ———————————————————————————————
+
+// 1. Import Design Tokens
+@use 'variables';
+
+// 2. Gradient Utility Classes
+.bg-gradient-vision {
+  background-image: var(--gradient-vision);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: background-image var(--transition-normal);
+}
+
+.bg-gradient-vision-hover:hover {
+  background-image: var(--gradient-vision-hover);
+}
+
+// Text gradient
+.text-gradient-vision {
+  background-image: var(--gradient-vision);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 100% 100%;
+  padding-bottom: 5px; // Prevents descender clipping
+  display: inline-block; // Ensures padding works correctly
+}
+
+// 3. Global Layout
+body,
+html {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: oklch(var(--b1));
+  color: oklch(var(--bc));
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+// 5. Profile Gradient Border
+.gradient-border {
+  padding: 2px;
+  background: var(--gradient-vision);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.gradient-border-inner {
+  background: var(--story-ring-inner);
+  border-radius: 50%;
+  padding: 1px;
+}
+
+// 4. Story Ring Gradient (Instagram-style)
+.story-ring {
+  padding: 2px;
+  background: var(--gradient-vision);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.story-ring-inner {
+  background: var(--story-ring-inner);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+// 6. Custom Scrollbar
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: oklch(var(--b2));
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: oklch(var(--bc) / 0.3);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--bc) / 0.5);
+}
+
+// Hide scrollbar but keep functionality
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+

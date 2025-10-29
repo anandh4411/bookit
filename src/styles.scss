@@ -1,0 +1,182 @@
+// ———————————————————————————————
+// MAIN STYLES ENTRY POINT
+// styles.scss – Angular global styles
+// ———————————————————————————————
+
+// 1. Tailwind + DaisyUI
+@use 'tailwindcss';
+// 2. Import Global Styles (Themes + Utilities)
+@use 'assets/styles/global';
+
+@plugin "daisyui";
+
+// ——— VISION-LIGHT THEME ———
+@plugin "daisyui/theme" {
+  name: 'vision-light';
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  // Base Colors - Clean whites and grays
+  --color-base-100: oklch(1 0 0); // Pure white background
+  --color-base-200: oklch(0.98 0 0); // Very light gray
+  --color-base-300: oklch(0.94 0 0); // Light gray borders
+  --color-base-content: oklch(0.2 0 0); // Dark text
+
+  // Primary - Pinkish brand color (#ed4264 → #ee609c gradient)
+  --color-primary: oklch(64.1% 0.252 27.5); // Pink (#ed4264)
+  --color-primary-content: oklch(1 0 0); // White text on pink
+
+  // Secondary - Updated to #ee609c
+  --color-secondary: oklch(70.5% 0.22 15); // #ee609c
+  --color-secondary-content: oklch(1 0 0); // White text
+
+  // Accent - Complementary teal/cyan (opposite on color wheel)
+  --color-accent: oklch(70% 0.15 195); // Soft teal
+  --color-accent-content: oklch(0.2 0 0); // Dark text
+
+  // Neutral - Warm grays (slight pink tint)
+  --color-neutral: oklch(0.3 0.01 27.5); // Dark neutral with pink hint
+  --color-neutral-content: oklch(1 0 0); // White text
+
+  // Status Colors - Aligned with pink theme
+  --color-info: oklch(65% 0.2 230); // Blue info
+  --color-info-content: oklch(1 0 0);
+
+  --color-success: oklch(70% 0.18 145); // Green success
+  --color-success-content: oklch(1 0 0);
+
+  --color-warning: oklch(75% 0.2 85); // Orange warning
+  --color-warning-content: oklch(0.2 0 0);
+
+  --color-error: oklch(60% 0.25 25); // Red error (close to pink)
+  --color-error-content: oklch(1 0 0);
+
+  // Borders & Radius
+  --radius-selector: 0.75rem;
+  --radius-field: 0.625rem;
+  --radius-box: 1rem;
+  --border: 1px;
+}
+
+// ——— VISION-DARK THEME ———
+@plugin "daisyui/theme" {
+  name: 'vision-dark';
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  // Base Colors - Deep blacks
+  --color-base-100: oklch(0.12 0 0); // Pure dark black (#0a0a0a)
+  --color-base-200: oklch(0.18 0 0); // Slightly lighter black
+  --color-base-300: oklch(0.25 0 0); // Dark gray borders
+  --color-base-content: oklch(0.95 0 0); // Off-white text
+
+  // Primary - SAME as light mode for consistency
+  --color-primary: oklch(64.1% 0.252 27.5); // Pink (#ed4264) - SAME
+  --color-primary-content: oklch(1 0 0); // White text on pink
+
+  // Secondary - Updated to #ee609c
+  --color-secondary: oklch(70.5% 0.22 15); // #ee609c
+  --color-secondary-content: oklch(1 0 0); // White text
+
+  // Accent - Bright teal for contrast
+  --color-accent: oklch(75% 0.18 195); // Bright teal
+  --color-accent-content: oklch(0.12 0 0); // Dark text
+
+  // Neutral - Cool dark grays
+  --color-neutral: oklch(0.25 0.01 27.5); // Dark neutral
+  --color-neutral-content: oklch(0.85 0 0); // Light gray text
+
+  // Status Colors - Vibrant for dark mode
+  --color-info: oklch(70% 0.22 230); // Bright blue
+  --color-info-content: oklch(0.12 0 0);
+
+  --color-success: oklch(72% 0.2 145); // Bright green
+  --color-success-content: oklch(0.12 0 0);
+
+  --color-warning: oklch(78% 0.22 85); // Bright orange
+  --color-warning-content: oklch(0.12 0 0);
+
+  --color-error: oklch(68% 0.27 25); // Bright red-pink
+  --color-error-content: oklch(0.12 0 0);
+
+  // Borders & Radius
+  --radius-selector: 0.75rem;
+  --radius-field: 0.625rem;
+  --radius-box: 1rem;
+  --border: 1px;
+}
+
+// ——— ENABLE THEMES ———
+@plugin "daisyui" {
+  themes: vision-light --default, vision-dark --prefersdark;
+}
+
+// ——— THEME-SPECIFIC COMPONENT STYLES ———
+[data-theme='vision-light'] {
+  // Sidebar styles
+  .sidebar {
+    background-color: oklch(1 0 0); // Pure white
+    color: oklch(0.2 0 0); // Dark text
+    border-color: oklch(0.94 0 0); // Light border
+  }
+
+  .sidebar-primary {
+    background-color: oklch(64.1% 0.252 27.5); // Pink background
+    color: oklch(1 0 0); // White text
+  }
+
+  // Active nav items
+  .nav-active {
+    color: oklch(64.1% 0.252 27.5); // Pink text
+    background-color: oklch(75% 0.18 27.5 / 0.1); // Light pink bg
+    border-color: oklch(64.1% 0.252 27.5); // Pink border
+  }
+
+  // Header
+  .header {
+    background-color: oklch(1 0 0);
+    border-color: oklch(0.94 0 0);
+  }
+}
+
+[data-theme='vision-dark'] {
+  // Sidebar styles
+  .sidebar {
+    background-color: oklch(0.12 0 0); // Deep black
+    color: oklch(0.95 0 0); // Off-white text
+    border-color: oklch(0.25 0 0); // Dark border
+  }
+
+  .sidebar-primary {
+    background-color: oklch(64.1% 0.252 27.5); // SAME pink - consistent!
+    color: oklch(1 0 0); // White text
+  }
+
+  // Active nav items
+  .nav-active {
+    color: oklch(64.1% 0.252 27.5); // SAME pink text
+    background-color: oklch(64.1% 0.252 27.5 / 0.15); // Pink tint bg
+    border-color: oklch(64.1% 0.252 27.5); // SAME pink border
+  }
+
+  // Header
+  .header {
+    background-color: oklch(0.12 0 0); // Deep black
+    border-color: oklch(0.25 0 0); // Dark border
+  }
+
+  // Cards - slightly elevated from background
+  .card,
+  .bg-base-100 {
+    background-color: oklch(0.15 0 0); // Slightly lighter than base
+  }
+}
+
+// ——— TAILWIND DARK SUPPORT ———
+@custom-variant dark (&:where([data-theme=vision-dark], [data-theme=vision-dark] *));
+
+button {
+  cursor: pointer;
+}

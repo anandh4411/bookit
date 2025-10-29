@@ -1,0 +1,21 @@
+<!-- Header -->
+<app-header
+  (searchChange)="onSearchChange($event)"
+  (createPost)="onCreatePost()"
+  (messagesClick)="onMessagesClick()"
+></app-header>
+
+<div class="dashboard-layout mx-auto flex overflow-hidden h-[calc(100vh-60px)] mt-[60px]">
+  <!-- Sidebar -->
+  <app-sidebar
+    [userProfile]="userProfile"
+    [navItems]="navItems"
+    (profileClick)="onProfileClick()"
+    (logoutClick)="onLogout()"
+  ></app-sidebar>
+
+  <!-- Main Content Area - Router Outlet -->
+  <main class="flex-1 bg-base-100 h-screen overflow-hidden">
+    <router-outlet />
+  </main>
+</div>

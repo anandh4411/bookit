@@ -1,0 +1,58 @@
+// ———————————————————————————————
+// VISIONENGINE DESIGN TOKENS
+// variables.scss – One Source of Truth
+// ———————————————————————————————
+
+:root {
+  // ——— BRAND GRADIENTS (Light Mode) ———
+  --gradient-vision: linear-gradient(45deg, #ed4264, #ee609c);
+  --gradient-vision-hover: linear-gradient(45deg, #d63b59, #d5548b);
+  --story-ring-inner: white;
+
+  // ——— THEME COLOR ALIASES (Light Mode) ———
+  --color-text: oklch(0.2 0 0); // Dark text
+  --color-text-muted: oklch(0.2 0 0 / 0.7); // 70% opacity
+  --color-background-secondary: oklch(0.98 0 0); // Light gray hover
+  --color-primary: oklch(64.1% 0.252 27.5); // Pink
+  --color-primary-light: oklch(64.1% 0.252 27.5 / 0.1); // Light pink bg
+
+  // ——— SPACING ———
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  // ——— RADIUS ———
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  // ——— SHADOWS ———
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  // ——— TRANSITIONS ———
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+}
+
+// ——— DARK MODE ———
+[data-theme='vision-dark'] {
+  // Same gradients
+  --gradient-vision: linear-gradient(45deg, #ed4264, #ee609c);
+  --gradient-vision-hover: linear-gradient(45deg, #d63b59, #d5548b);
+  --story-ring-inner: #2a2a2a;
+
+  // ——— THEME COLOR ALIASES (Dark Mode) ———
+  --color-text: oklch(0.95 0 0); // Light text
+  --color-text-muted: oklch(0.95 0 0 / 0.7); // 70% opacity
+  --color-background-secondary: oklch(0.18 0 0); // Dark gray hover
+  --color-primary: oklch(64.1% 0.252 27.5); // SAME pink
+  --color-primary-light: oklch(64.1% 0.252 27.5 / 0.15); // Light pink bg (more visible in dark)
+}
