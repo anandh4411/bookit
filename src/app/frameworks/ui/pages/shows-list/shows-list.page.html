@@ -1,87 +1,122 @@
-<div class="shows-list-container p-6 h-full overflow-y-auto">
+<div class="p-6 h-full overflow-y-auto">
   <!-- Header -->
-  <div class="flex justify-between items-center mb-8">
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
     <div>
-      <h1 class="text-3xl font-bold">Movie Shows</h1>
-      <p class="text-base-content/70 mt-1">Manage your theater shows and layouts</p>
+      <h1 class="text-2xl font-bold">Theater Layouts</h1>
+      <p class="text-sm text-base-content/60 mt-1">
+        Manage screen configurations and seating arrangements
+      </p>
     </div>
-    <button class="btn btn-primary gap-2" (click)="createNewLayout()">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button class="btn btn-primary btn-sm gap-2" (click)="createNewLayout()">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
       </svg>
-      Create New Layout
+      New Layout
     </button>
   </div>
 
   <!-- Shows Grid -->
-  <div *ngIf="shows.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div *ngIf="shows.length > 0" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
     <div
       *ngFor="let show of shows"
-      class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all"
+      class="card bg-base-200 shadow hover:shadow-lg transition-shadow"
     >
-      <!-- Movie Poster -->
-      <figure class="relative h-64 bg-gradient-to-br from-primary/20 to-secondary/20">
-        <img
-          *ngIf="show.posterUrl"
-          [src]="show.posterUrl"
-          [alt]="show.movieName"
-          class="w-full h-full object-cover"
-        />
-        <div
-          *ngIf="!show.posterUrl"
-          class="w-full h-full flex items-center justify-center text-6xl font-bold text-primary/30"
-        >
-          {{ show.movieName.charAt(0) }}
-        </div>
-
-        <!-- Genre Badge -->
-        <div class="absolute top-4 right-4">
-          <span class="badge badge-primary badge-lg">{{ show.genre }}</span>
-        </div>
-      </figure>
-
-      <div class="card-body">
-        <!-- Movie Title -->
-        <h2 class="card-title text-xl">{{ show.movieName }}</h2>
-
-        <!-- Movie Details -->
-        <div class="space-y-2 text-sm">
-          <div class="flex items-center gap-2 text-base-content/70">
-            <lucide-angular [img]="Calendar" class="w-4 h-4"></lucide-angular>
-            <span>{{ formatDate(show.showDate) }}</span>
-          </div>
-          <div class="flex items-center gap-2 text-base-content/70">
-            <lucide-angular [img]="Clock" class="w-4 h-4"></lucide-angular>
-            <span>{{ show.showTime }}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="badge badge-outline">{{ show.language }}</span>
-            <span class="badge badge-outline">{{ show.theaterLayout.name }}</span>
+      <!-- Compact Header with Image -->
+      <div class="flex gap-3 p-4">
+        <!-- Movie Poster Thumbnail -->
+        <div class="w-16 h-24 flex-shrink-0 rounded overflow-hidden bg-base-300">
+          <img
+            *ngIf="show.posterUrl"
+            [src]="show.posterUrl"
+            [alt]="show.movieName"
+            class="w-full h-full object-cover"
+          />
+          <div
+            *ngIf="!show.posterUrl"
+            class="w-full h-full flex items-center justify-center text-2xl font-bold text-base-content/20"
+          >
+            {{ show.movieName.charAt(0) }}
           </div>
         </div>
 
-        <!-- Seat Stats -->
-        <div class="stats stats-horizontal shadow mt-4 w-full">
-          <div class="stat p-3">
-            <div class="stat-title text-xs">Available</div>
-            <div class="stat-value text-success text-2xl">{{ getAvailableSeatsCount(show) }}</div>
+        <!-- Info Section -->
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-base truncate">{{ show.movieName }}</h3>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="badge badge-sm badge-outline">{{ show.theaterLayout.name }}</span>
+            <span class="badge badge-sm">{{ show.genre }}</span>
           </div>
-          <div class="stat p-3">
-            <div class="stat-title text-xs">Booked</div>
-            <div class="stat-value text-error text-2xl">{{ getBookedSeatsCount(show) }}</div>
+
+          <div class="flex items-center gap-3 mt-2 text-xs text-base-content/60">
+            <div class="flex items-center gap-1">
+              <lucide-angular [img]="Clock" class="w-3 h-3"></lucide-angular>
+              <span>{{ show.showTime }}</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span>{{ show.language }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider my-0"></div>
+
+      <!-- Compact Stats -->
+      <div class="px-4 py-3 flex items-center justify-between">
+        <div class="flex gap-4 text-sm">
+          <div>
+            <span class="text-xs text-base-content/50">Total</span>
+            <div class="font-semibold">{{ getTotalSeatsCount(show) }}</div>
+          </div>
+          <div>
+            <span class="text-xs text-base-content/50">Available</span>
+            <div class="font-semibold text-success">{{ getAvailableSeatsCount(show) }}</div>
+          </div>
+          <div>
+            <span class="text-xs text-base-content/50">Booked</span>
+            <div class="font-semibold text-error">{{ getBookedSeatsCount(show) }}</div>
           </div>
         </div>
 
-        <!-- Actions -->
-        <div class="card-actions justify-end mt-4">
-          <button class="btn btn-error btn-sm gap-2" (click)="deleteShow(show.id)">
-            <lucide-angular [img]="Trash2" class="w-4 h-4"></lucide-angular>
-            Delete
-          </button>
-          <button class="btn btn-primary btn-sm gap-2" (click)="viewShow(show.id)">
-            <lucide-angular [img]="Eye" class="w-4 h-4"></lucide-angular>
-            View & Book
-          </button>
+        <!-- Action Dropdown -->
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn btn-ghost btn-sm btn-circle">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
+              />
+            </svg>
+          </label>
+          <ul
+            tabindex="0"
+            class="dropdown-content menu p-2 shadow-lg bg-base-100 rounded-box w-52 border border-base-300"
+          >
+            <li>
+              <a (click)="editLayout(show.id)" class="gap-2">
+                <lucide-angular [img]="Edit" class="w-4 h-4"></lucide-angular>
+                Edit Layout
+              </a>
+            </li>
+            <li>
+              <a (click)="viewShow(show.id)" class="gap-2">
+                <lucide-angular [img]="Eye" class="w-4 h-4"></lucide-angular>
+                Preview Booking
+              </a>
+            </li>
+            <li>
+              <a (click)="duplicateLayout(show.id)" class="gap-2">
+                <lucide-angular [img]="Copy" class="w-4 h-4"></lucide-angular>
+                Duplicate
+              </a>
+            </li>
+            <div class="divider my-1"></div>
+            <li>
+              <a (click)="deleteShow(show.id)" class="text-error gap-2">
+                <lucide-angular [img]="Trash2" class="w-4 h-4"></lucide-angular>
+                Delete
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -89,21 +124,23 @@
 
   <!-- Empty State -->
   <div *ngIf="shows.length === 0" class="flex flex-col items-center justify-center h-96">
-    <svg
-      class="w-24 h-24 text-base-content/20 mb-4"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
-      />
-    </svg>
-    <h3 class="text-xl font-semibold mb-2">No Shows Created Yet</h3>
-    <p class="text-base-content/70 mb-4">Create your first theater layout to get started</p>
-    <button class="btn btn-primary" (click)="createNewLayout()">Create First Layout</button>
+    <div class="w-20 h-20 rounded-full bg-base-300 flex items-center justify-center mb-4">
+      <svg
+        class="w-10 h-10 text-base-content/30"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
+        />
+      </svg>
+    </div>
+    <h3 class="text-lg font-semibold mb-1">No Layouts Created</h3>
+    <p class="text-sm text-base-content/60 mb-4">Create your first theater layout to get started</p>
+    <button class="btn btn-primary btn-sm" (click)="createNewLayout()">Create Layout</button>
   </div>
 </div>

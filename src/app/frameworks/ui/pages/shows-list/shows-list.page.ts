@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { BookingService } from '../../../../core/services/booking.service';
 import { MovieShow } from '../../../../core/models/theater.models';
-import { Eye, Trash2, Calendar, Clock, LucideAngularModule } from 'lucide-angular';
+import { Eye, Trash2, Clock, Edit, Copy, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-shows-list',
@@ -14,10 +14,13 @@ import { Eye, Trash2, Calendar, Clock, LucideAngularModule } from 'lucide-angula
 })
 export class ShowsListPage implements OnInit {
   shows: MovieShow[] = [];
+
+  // Icons
   Eye = Eye;
   Trash2 = Trash2;
-  Calendar = Calendar;
   Clock = Clock;
+  Edit = Edit;
+  Copy = Copy;
 
   constructor(private bookingService: BookingService, private router: Router) {}
 
@@ -31,18 +34,44 @@ export class ShowsListPage implements OnInit {
     });
   }
 
+  createNewLayout(): void {
+    this.router.navigate(['/layout-creator']);
+  }
+
+  editLayout(showId: string): void {
+    // Navigate to edit mode (you'll implement this)
+    this.router.navigate(['/layout-creator', showId]);
+  }
+
   viewShow(showId: string): void {
     this.router.navigate(['/seat-selection', showId]);
   }
 
+  duplicateLayout(showId: string): void {
+    const show = this.bookingService.getShowById(showId);
+    if (show) {
+      const duplicated = {
+        ...show,
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        movieName: `${show.movieName} (Copy)`,
+        theaterLayout: {
+          ...show.theaterLayout,
+          id: `layout-${Date.now()}`,
+          name: `${show.theaterLayout.name} (Copy)`,
+        },
+      };
+      this.bookingService.addShow(duplicated);
+    }
+  }
+
   deleteShow(showId: string): void {
-    if (confirm('Are you sure you want to delete this show?')) {
+    if (confirm('Delete this layout? This action cannot be undone.')) {
       this.bookingService.deleteShow(showId);
     }
   }
 
-  createNewLayout(): void {
-    this.router.navigate(['/layout-creator']);
+  getTotalSeatsCount(show: MovieShow): number {
+    return show.theaterLayout.seats.length;
   }
 
   getAvailableSeatsCount(show: MovieShow): number {
@@ -51,14 +80,5 @@ export class ShowsListPage implements OnInit {
 
   getBookedSeatsCount(show: MovieShow): number {
     return show.theaterLayout.seats.filter((seat) => seat.status === 'booked').length;
-  }
-
-  formatDate(date: Date): string {
-    return new Date(date).toLocaleDateString('en-US', {
-      weekday: 'short',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
   }
 }
