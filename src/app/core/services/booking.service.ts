@@ -193,6 +193,12 @@ export class BookingService {
   // ========== DEFAULT DATA ==========
 
   private getDefaultShows(): MovieShow[] {
+    const moviePosters = [
+      'https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&w=400',
+      'https://images.pexels.com/photos/5082566/pexels-photo-5082566.jpeg?auto=compress&cs=tinysrgb&w=400',
+      'https://images.pexels.com/photos/436413/pexels-photo-436413.jpeg?auto=compress&cs=tinysrgb&w=400',
+    ];
+
     return [
       {
         id: 'demo-1',
@@ -201,7 +207,7 @@ export class BookingService {
         showDate: new Date(),
         language: 'English',
         genre: 'Action',
-        posterUrl: 'https://via.placeholder.com/300x450/4A90E2/ffffff?text=Avengers',
+        posterUrl: moviePosters[0],
         theaterLayout: {
           id: 'layout-1',
           name: 'Screen 1',
