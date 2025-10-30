@@ -1,4 +1,7 @@
-<div *ngIf="show" class="seat-selection-container h-[calc(100vh-60px)] overflow-hidden flex flex-col">
+<div
+  *ngIf="show"
+  class="seat-selection-container h-[calc(100vh-60px)] overflow-hidden flex flex-col"
+>
   <!-- Movie Header -->
   <div class="bg-base-200 border-b border-base-300 px-6 py-4">
     <div class="flex justify-between items-center">
@@ -106,8 +109,9 @@
 </div>
 
 <!-- Booking Confirmation Modal -->
-<div *ngIf="showModal && booking" class="modal modal-open">
-  <div class="modal-box max-w-2xl">
+@if (showModal && booking) {
+<div class="modal modal-open">
+  <div class="modal-box max-w-2xl h-[80%]">
     <!-- Success Header -->
     <div class="text-center mb-6">
       <div
@@ -193,6 +197,7 @@
   </div>
   <div class="modal-backdrop" (click)="closeModal()"></div>
 </div>
+}
 
 <!-- Loading/Error State -->
 <div *ngIf="!show" class="flex items-center justify-center h-full">

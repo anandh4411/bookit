@@ -4,7 +4,7 @@ import { NgIf, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-form-field',
-  imports: [NgIf, NgFor, FormsModule],
+  imports: [NgIf, FormsModule],
   template: `
     <div class="form-control">
       <label *ngIf="label" class="label">

@@ -47,7 +47,6 @@ export class SeatSelectionPage implements OnInit {
   loadShow(showId: string): void {
     this.show = this.bookingService.getShowById(showId) || null;
     if (!this.show) {
-      alert('Show not found!');
       this.router.navigate(['/shows']);
     }
   }
