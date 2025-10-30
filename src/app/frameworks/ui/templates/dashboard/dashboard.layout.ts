@@ -28,7 +28,6 @@ export class DashboardLayout implements OnInit {
   navItems: NavItemData[] = [
     { icon: LayoutGrid, label: 'Shows List', href: '/shows' },
     { icon: PlusCircle, label: 'Create Layout', href: '/layout-creator' },
-    { icon: Eye, label: 'Preview', href: '/seat-selection/demo' },
   ];
 
   constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
@@ -46,7 +45,7 @@ export class DashboardLayout implements OnInit {
     }
   }
 
-  onCreatePost(): void {
+  onCreateLayout(): void {
     // Navigate to create new show layout
     this.router.navigate(['/layout-creator']);
   }

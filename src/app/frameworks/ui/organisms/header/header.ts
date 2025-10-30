@@ -23,11 +23,11 @@ import { ThemeToggle } from '../../molecules/theme-toggle/theme-toggle';
         <!-- Right Actions -->
         <div class="flex items-center space-x-4">
           <button
-            (click)="onCreatePost()"
+            (click)="onCreateLayout()"
             class="bg-gradient-vision hover:bg-gradient-vision-hover text-white px-4 py-2 rounded-full text-sm font-medium flex items-center cursor-pointer hover:shadow-lg transition-all"
           >
             <lucide-icon [img]="Plus" class="w-4 h-4 mr-2"></lucide-icon>
-            Create new Post
+            Create new Layout
           </button>
 
           <app-notification-dropdown />
@@ -46,7 +46,7 @@ import { ThemeToggle } from '../../molecules/theme-toggle/theme-toggle';
 })
 export class Header {
   @Output() searchChange = new EventEmitter<string>();
-  @Output() createPost = new EventEmitter<void>();
+  @Output() createLayout = new EventEmitter<void>();
   @Output() messagesClick = new EventEmitter<void>();
 
   readonly Plus = Plus;
@@ -56,8 +56,8 @@ export class Header {
     this.searchChange.emit(query);
   }
 
-  onCreatePost(): void {
-    this.createPost.emit();
+  onCreateLayout(): void {
+    this.createLayout.emit();
   }
 
   onMessagesClick(): void {
