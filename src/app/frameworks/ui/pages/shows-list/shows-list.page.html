@@ -11,10 +11,7 @@
 
   <!-- Shows Grid -->
   <div *ngIf="shows.length > 0" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-    <div
-      *ngFor="let show of shows"
-      class="card bg-base-200 shadow hover:shadow-lg transition-shadow"
-    >
+    <app-card *ngFor="let show of shows" variant="hover" padding="none">
       <!-- Compact Header with Image -->
       <div class="flex gap-3 p-4">
         <!-- Movie Poster Thumbnail -->
@@ -113,7 +110,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </app-card>
   </div>
 
   <!-- Empty State -->

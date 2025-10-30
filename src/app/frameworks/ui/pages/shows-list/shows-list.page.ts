@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { BookingService } from '../../../../core/services/booking.service';
 import { MovieShow } from '../../../../core/models/theater.models';
 import { Eye, Trash2, Clock, Edit, Copy, LucideAngularModule } from 'lucide-angular';
+import { Card } from '../../atoms/card/card';
 
 @Component({
   selector: 'app-shows-list',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, Card],
   templateUrl: './shows-list.page.html',
   styleUrl: './shows-list.page.scss',
 })
@@ -39,7 +40,6 @@ export class ShowsListPage implements OnInit {
   }
 
   editLayout(showId: string): void {
-    // Navigate to edit mode (you'll implement this)
     this.router.navigate(['/layout-creator', showId]);
   }
 
