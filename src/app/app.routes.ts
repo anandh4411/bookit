@@ -40,6 +40,16 @@ export const routes: Routes = [
             (m) => m.SeatSelectionPage
           ),
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./frameworks/ui/pages/profile/profile.page').then((m) => m.ProfilePage),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import('./frameworks/ui/pages/settings/settings.page').then((m) => m.SettingsPage),
+      },
     ],
   },
 

@@ -3,7 +3,7 @@ import { RouterOutlet, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Header } from '../../organisms/header/header';
 import { Sidebar, UserProfile, NavItemData } from '../../organisms/sidebar/sidebar';
-import { LayoutGrid, PlusCircle, Eye } from 'lucide-angular';
+import { LayoutGrid, CirclePlus, UserPen, Settings } from 'lucide-angular';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -27,7 +27,9 @@ export class DashboardLayout implements OnInit {
   // Navigation items for BookMyShow Admin
   navItems: NavItemData[] = [
     { icon: LayoutGrid, label: 'Shows List', href: '/shows' },
-    { icon: PlusCircle, label: 'Create Layout', href: '/layout-creator' },
+    { icon: CirclePlus, label: 'Create Layout', href: '/layout-creator' },
+    { icon: UserPen, label: 'Profile', href: '/profile' },
+    { icon: Settings, label: 'Settings', href: '/settings' },
   ];
 
   constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}

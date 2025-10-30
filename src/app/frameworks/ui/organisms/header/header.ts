@@ -2,13 +2,12 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { LucideAngularModule, Plus, Send } from 'lucide-angular';
 import { Logo } from '../../atoms/logo/logo';
 import { SearchBar } from '../../molecules/search-bar/search-bar';
-import { NotificationDropdown } from '../../molecules/notification-dropdown/notification-dropdown';
 import { ThemeToggle } from '../../molecules/theme-toggle/theme-toggle';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [LucideAngularModule, Logo, SearchBar, NotificationDropdown, ThemeToggle],
+  imports: [LucideAngularModule, Logo, SearchBar, ThemeToggle],
   template: `
     <header class="header bg-base-100 border-b border-base-300 fixed top-0 left-0 right-0 z-50">
       <div class="max-w-[95vw] mx-auto px-4 py-2 flex items-center justify-between">
@@ -30,15 +29,7 @@ import { ThemeToggle } from '../../molecules/theme-toggle/theme-toggle';
             Create new Layout
           </button>
 
-          <app-notification-dropdown />
           <app-theme-toggle />
-
-          <button
-            (click)="onMessagesClick()"
-            class="cursor-pointer text-base-content hover:text-primary transition-colors"
-          >
-            <lucide-icon [img]="Send" class="w-6 h-6"></lucide-icon>
-          </button>
         </div>
       </div>
     </header>
