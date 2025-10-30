@@ -15,6 +15,7 @@ import { NgClass } from '@angular/common';
 export class Card {
   @Input() variant: 'default' | 'hover' | 'flat' = 'default';
   @Input() padding: 'none' | 'sm' | 'md' | 'lg' = 'md';
+  @Input() customClass: string = '';
 
   private static readonly VARIANT_MAP = {
     default: 'bg-base-200 shadow',
@@ -33,6 +34,7 @@ export class Card {
     const base = 'card rounded-lg';
     const variant = Card.VARIANT_MAP[this.variant] ?? Card.VARIANT_MAP.default;
     const padding = Card.PADDING_MAP[this.padding] ?? '';
-    return `${base} ${variant} ${padding}`;
+    const custom = this.customClass || '';
+    return `${base} ${variant} ${padding} ${custom}`.trim();
   }
 }

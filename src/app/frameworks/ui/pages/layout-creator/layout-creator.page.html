@@ -9,162 +9,118 @@
     <!-- Configuration Panel -->
     <div class="lg:col-span-2 space-y-6">
       <!-- Basic Info Card -->
-      <div class="card bg-base-200 shadow-xl">
-        <div class="card-body">
-          <h2 class="card-title">Basic Information</h2>
+      <app-card variant="default" padding="md" [customClass]="'mb-6'">
+        <h2 class="card-title mb-4">Basic Information</h2>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Layout Name -->
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text font-semibold">Theater/Screen Name</span>
-              </label>
-              <input
-                type="text"
-                [(ngModel)]="layoutName"
-                placeholder="e.g., Screen 1, IMAX Hall"
-                class="input input-bordered"
-              />
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-form-field
+            label="Theater/Screen Name"
+            type="text"
+            placeholder="e.g., Screen 1, IMAX Hall"
+            [(value)]="layoutName"
+          />
 
-            <!-- Movie Name -->
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text font-semibold">Movie Name</span>
-              </label>
-              <input
-                type="text"
-                [(ngModel)]="movieName"
-                placeholder="e.g., Avengers: Endgame"
-                class="input input-bordered"
-              />
-            </div>
+          <app-form-field
+            label="Movie Name"
+            type="text"
+            placeholder="e.g., Avengers: Endgame"
+            [(value)]="movieName"
+          />
 
-            <!-- Show Time -->
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text font-semibold">Show Time</span>
-              </label>
-              <input type="time" [(ngModel)]="showTime" class="input input-bordered" />
-            </div>
+          <app-form-field label="Show Time" type="time" [(value)]="showTime" />
 
-            <!-- Language -->
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text font-semibold">Language</span>
-              </label>
-              <select [(ngModel)]="language" class="select select-bordered">
-                <option>English</option>
-                <option>Hindi</option>
-                <option>Tamil</option>
-                <option>Telugu</option>
-                <option>Malayalam</option>
-              </select>
-            </div>
+          <app-form-field label="Language" type="select" [(value)]="language">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Tamil</option>
+            <option>Telugu</option>
+            <option>Malayalam</option>
+          </app-form-field>
 
-            <!-- Genre -->
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text font-semibold">Genre</span>
-              </label>
-              <select [(ngModel)]="genre" class="select select-bordered">
-                <option>Action</option>
-                <option>Drama</option>
-                <option>Comedy</option>
-                <option>Thriller</option>
-                <option>Horror</option>
-                <option>Romance</option>
-                <option>Sci-Fi</option>
-              </select>
-            </div>
+          <app-form-field label="Genre" type="select" [(value)]="genre">
+            <option>Action</option>
+            <option>Drama</option>
+            <option>Comedy</option>
+            <option>Thriller</option>
+            <option>Horror</option>
+            <option>Romance</option>
+            <option>Sci-Fi</option>
+          </app-form-field>
 
-            <!-- Screen Size -->
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text font-semibold">Screen Size</span>
-              </label>
-              <select
-                [(ngModel)]="screenSize"
-                (ngModelChange)="onScreenSizeChange()"
-                class="select select-bordered"
-              >
-                <option [value]="ScreenSize.SMALL">Small (10 rows × 8 seats)</option>
-                <option [value]="ScreenSize.MEDIUM">Medium (15 rows × 10 seats)</option>
-                <option [value]="ScreenSize.LARGE">Large (20 rows × 12 seats)</option>
-              </select>
-            </div>
-          </div>
+          <app-form-field
+            label="Screen Size"
+            type="select"
+            [(value)]="screenSize"
+            (valueChange)="onScreenSizeChange()"
+          >
+            <option [value]="ScreenSize.SMALL">Small (10 rows × 8 seats)</option>
+            <option [value]="ScreenSize.MEDIUM">Medium (15 rows × 10 seats)</option>
+            <option [value]="ScreenSize.LARGE">Large (20 rows × 12 seats)</option>
+          </app-form-field>
         </div>
-      </div>
+      </app-card>
 
       <!-- Rows Configuration Card -->
-      <div class="card bg-base-200 shadow-xl">
-        <div class="card-body">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="card-title">Row Configuration</h2>
-            <button class="btn btn-primary btn-sm gap-2" (click)="addRow()">
-              <lucide-angular [img]="Plus" class="w-4 h-4"></lucide-angular>
-              Add Row
-            </button>
-          </div>
+      <app-card variant="default" padding="md">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="card-title">Row Configuration</h2>
+          <button class="btn btn-primary btn-sm gap-2" (click)="addRow()">
+            <lucide-angular [img]="Plus" class="w-4 h-4"></lucide-angular>
+            Add Row
+          </button>
+        </div>
 
-          <!-- Rows List -->
-          <div class="space-y-4 max-h-96 overflow-y-auto">
-            <div *ngFor="let row of rows; let i = index" class="card bg-base-300 p-4">
-              <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
-                <!-- Row Label -->
+        <!-- Rows List -->
+        <div class="space-y-4 max-h-96 overflow-y-auto">
+          <app-card *ngFor="let row of rows; let i = index" variant="flat" padding="md">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+              <!-- Row Label -->
+              <app-form-field
+                label="Row"
+                type="text"
+                [value]="row.label"
+                [disabled]="true"
+                size="sm"
+              />
+
+              <!-- Seat Count -->
+              <app-form-field
+                label="Seats"
+                type="number"
+                [(value)]="row.seatCount"
+                [max]="SCREEN_CONFIGS[screenSize].maxSeatsPerRow"
+                [min]="1"
+                size="sm"
+              />
+
+              <!-- Seat Type -->
+              <div class="md:col-span-2">
+                <app-form-field label="Type" type="select" [(value)]="row.type" size="sm">
+                  <option *ngFor="let type of seatTypes" [value]="type.value">
+                    {{ type.label }}
+                  </option>
+                </app-form-field>
+              </div>
+
+              <!-- Price -->
+              <app-form-field
+                label="Price (₹)"
+                type="number"
+                [(value)]="row.price"
+                [min]="0"
+                size="sm"
+              />
+
+              <!-- Actions -->
+              <div class="form-control">
+                <button class="btn btn-error btn-sm btn-circle" (click)="removeRow(i)">
+                  <lucide-angular [img]="Trash2" class="w-4 h-4"></lucide-angular>
+                </button>
+              </div>
+
+              <!-- Aisle Configuration -->
+              <div class="md:col-span-6">
                 <div class="form-control">
-                  <label class="label label-text text-xs">Row</label>
-                  <input
-                    type="text"
-                    [value]="row.label"
-                    disabled
-                    class="input input-bordered input-sm font-bold text-center"
-                  />
-                </div>
-
-                <!-- Seat Count -->
-                <div class="form-control">
-                  <label class="label label-text text-xs">Seats</label>
-                  <input
-                    type="number"
-                    [(ngModel)]="row.seatCount"
-                    [max]="SCREEN_CONFIGS[screenSize].maxSeatsPerRow"
-                    min="1"
-                    class="input input-bordered input-sm"
-                  />
-                </div>
-
-                <!-- Seat Type -->
-                <div class="form-control md:col-span-2">
-                  <label class="label label-text text-xs">Type</label>
-                  <select [(ngModel)]="row.type" class="select select-bordered select-sm">
-                    <option *ngFor="let type of seatTypes" [value]="type.value">
-                      {{ type.label }}
-                    </option>
-                  </select>
-                </div>
-
-                <!-- Price -->
-                <div class="form-control">
-                  <label class="label label-text text-xs">Price (₹)</label>
-                  <input
-                    type="number"
-                    [(ngModel)]="row.price"
-                    min="0"
-                    class="input input-bordered input-sm"
-                  />
-                </div>
-
-                <!-- Actions -->
-                <div class="form-control">
-                  <button class="btn btn-error btn-sm btn-circle" (click)="removeRow(i)">
-                    <lucide-angular [img]="Trash2" class="w-4 h-4"></lucide-angular>
-                  </button>
-                </div>
-
-                <!-- Aisle Configuration -->
-                <div class="form-control md:col-span-6">
                   <label class="label label-text text-xs">
                     Aisle After Seats (comma-separated, e.g., 3, 7)
                   </label>
@@ -177,75 +133,67 @@
                   />
                 </div>
               </div>
+            </div>
 
-              <!-- Row Preview -->
-              <div class="mt-3 flex gap-1 flex-wrap">
-                <div
-                  *ngFor="let seat of [].constructor(row.seatCount); let j = index"
-                  class="relative"
-                >
-                  <div class="w-6 h-6 rounded {{ getSeatTypeColor(row.type) }} opacity-60"></div>
-                  <div *ngIf="row.aisleAfter?.includes(j + 1)" class="w-3 h-6 inline-block"></div>
-                </div>
+            <!-- Row Preview -->
+            <div class="mt-3 flex gap-1 flex-wrap">
+              <div
+                *ngFor="let seat of [].constructor(row.seatCount); let j = index"
+                class="relative"
+              >
+                <div class="w-6 h-6 rounded {{ getSeatTypeColor(row.type) }} opacity-60"></div>
+                <div *ngIf="row.aisleAfter?.includes(j + 1)" class="w-3 h-6 inline-block"></div>
               </div>
             </div>
-          </div>
-
-          <!-- Empty State -->
-          <div *ngIf="rows.length === 0" class="text-center py-8 text-base-content/50">
-            <p>No rows added yet. Click "Add Row" to start.</p>
-          </div>
+          </app-card>
         </div>
-      </div>
+
+        <!-- Empty State -->
+        <div *ngIf="rows.length === 0" class="text-center py-8 text-base-content/50">
+          <p>No rows added yet. Click "Add Row" to start.</p>
+        </div>
+      </app-card>
     </div>
 
     <!-- Summary & Actions Panel -->
     <div class="space-y-6">
       <!-- Summary Card -->
-      <div class="card bg-base-200 shadow-xl sticky top-6">
-        <div class="card-body">
-          <h2 class="card-title text-lg">Summary</h2>
+      <app-card variant="default" padding="md" class="sticky top-6">
+        <h2 class="card-title text-lg mb-4">Summary</h2>
 
-          <div class="stats stats-vertical shadow bg-base-300 w-full">
-            <div class="stat p-4">
-              <div class="stat-title text-xs">Total Rows</div>
-              <div class="stat-value text-2xl">{{ rows.length }}</div>
+        <div class="stats stats-vertical shadow bg-base-300 w-full">
+          <app-stat-card title="Total Rows" [value]="rows.length" size="md" />
+          <app-stat-card
+            title="Total Seats"
+            [value]="getTotalSeats()"
+            variant="primary"
+            size="md"
+          />
+        </div>
+
+        <!-- Seat Type Legend -->
+        <div class="mt-4">
+          <h3 class="font-semibold text-sm mb-2">Seat Types</h3>
+          <div class="space-y-2">
+            <div *ngFor="let type of seatTypes" class="flex items-center gap-2 text-sm">
+              <div class="w-4 h-4 rounded {{ type.color }}"></div>
+              <span>{{ type.label }}</span>
             </div>
-            <div class="stat p-4">
-              <div class="stat-title text-xs">Total Seats</div>
-              <div class="stat-value text-2xl text-primary">{{ getTotalSeats() }}</div>
-            </div>
-          </div>
-
-          <!-- Seat Type Legend -->
-          <div class="mt-4">
-            <h3 class="font-semibold text-sm mb-2">Seat Types</h3>
-            <div class="space-y-2">
-              <div *ngFor="let type of seatTypes" class="flex items-center gap-2 text-sm">
-                <div class="w-4 h-4 rounded {{ type.color }}"></div>
-                <span>{{ type.label }}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Actions -->
-          <div class="card-actions flex-col gap-2 mt-4">
-            <button
-              class="btn btn-primary w-full gap-2"
-              (click)="saveLayout()"
-              [disabled]="!layoutName || !movieName || rows.length === 0"
-            >
-              <lucide-angular [img]="Save" class="w-5 h-5"></lucide-angular>
-              Save Layout
-            </button>
-
-            <button class="btn btn-outline w-full gap-2" (click)="previewLayout()">
-              <lucide-angular [img]="Eye" class="w-5 h-5"></lucide-angular>
-              Preview
-            </button>
           </div>
         </div>
-      </div>
+
+        <!-- Actions -->
+        <div class="card-actions flex-col gap-2 mt-4">
+          <button
+            class="btn btn-primary w-full gap-2"
+            (click)="saveLayout()"
+            [disabled]="!layoutName || !movieName || rows.length === 0"
+          >
+            <lucide-angular [img]="Save" class="w-5 h-5"></lucide-angular>
+            Save Layout
+          </button>
+        </div>
+      </app-card>
     </div>
   </div>
 </div>

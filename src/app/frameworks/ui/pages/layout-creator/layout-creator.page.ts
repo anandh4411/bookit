@@ -12,11 +12,14 @@ import {
   generateSeatsFromRows,
 } from '../../../../core/models/theater.models';
 import { Save, Plus, Trash2, Eye, LucideAngularModule } from 'lucide-angular';
+import { Card } from "../../atoms/card/card";
+import { FormField } from "../../atoms/form-field/form-field";
+import { StatCard } from "../../atoms/stat-card/stat-card";
 
 @Component({
   selector: 'app-layout-creator',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, LucideAngularModule, Card, FormField, StatCard],
   templateUrl: './layout-creator.page.html',
   styleUrl: './layout-creator.page.scss',
 })
